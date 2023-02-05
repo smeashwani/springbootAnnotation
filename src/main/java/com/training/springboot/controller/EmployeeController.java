@@ -3,6 +3,7 @@ package com.training.springboot.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,12 @@ import com.training.springboot.service.EmployeeService;
 public class EmployeeController {
 	@Autowired
 	EmployeeService employeeService;
+	
+	@Value("${jdbc.url}")
+	String jdbcURL;
+	
+	@Value("${jdbc.username}")
+	String jdbcUsername;
 	
 	@GetMapping("/list")
 	public List<Employee> allEmployee(){
@@ -38,6 +45,11 @@ public class EmployeeController {
 	@DeleteMapping("/{id}")
 	public String  deleteEmployee(@PathVariable int id){
 		return employeeService.delete(id) ? "Successfully" : "Not Successfully";
+	}
+	
+	@GetMapping("/details")
+	public String  details(){
+		return jdbcURL + " " + jdbcUsername;
 	}
 	
 }
