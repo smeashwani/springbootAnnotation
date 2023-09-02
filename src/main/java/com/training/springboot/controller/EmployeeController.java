@@ -2,6 +2,8 @@ package com.training.springboot.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,11 +19,17 @@ import com.training.springboot.service.EmployeeService;
 @RestController
 @RequestMapping("/v1/api/employee")
 public class EmployeeController {
-	@Autowired
+	Logger logger = LoggerFactory.getLogger(getClass().getName()); 
+
 	EmployeeService employeeService;
 	
+	public EmployeeController(EmployeeService employeeService) {
+		this.employeeService = employeeService;
+	}
+
 	@GetMapping("/list")
 	public List<Employee> allEmployee(){
+        logger.info("An INFO Message");
 		return employeeService.getAll();
 	}
 	
