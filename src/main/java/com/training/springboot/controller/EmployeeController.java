@@ -16,7 +16,6 @@ public class EmployeeController {
 	
 	@GetMapping("/profile")
 	public String  profile(){
-		return 	config.getJdbcURL();
+		return 	String.format("URL= %s , Name=%s , Pwd=%s", config.getUrl(), config.getUsername(), config.getUserPwd() );
 	}
-	
 }
