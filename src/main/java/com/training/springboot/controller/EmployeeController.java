@@ -3,6 +3,7 @@ package com.training.springboot.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.training.springboot.model.Employee;
+import com.training.springboot.service.DatasourceConfig;
 import com.training.springboot.service.EmployeeService;
 
 @RestController
@@ -25,6 +27,10 @@ public class EmployeeController {
 	
 	@Autowired
 	EmployeeService employeeService;
+	
+	@Autowired
+	//@Qualifier("devDatasourceConfig")
+	DatasourceConfig config;
 	
 	@Value("${jdbc.url}")
 	String jdbcURL;
