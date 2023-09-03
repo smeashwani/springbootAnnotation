@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,10 @@ import com.training.springboot.service.EmployeeService;
 @RestController
 @RequestMapping("/v1/api/employee")
 public class EmployeeController {
+	
+	@Autowired
+	private Environment env;
+	
 	@Autowired
 	EmployeeService employeeService;
 	
@@ -29,6 +34,7 @@ public class EmployeeController {
 	
 	@GetMapping("/list")
 	public List<Employee> allEmployee(){
+		
 		return employeeService.getAll();
 	}
 	
@@ -49,7 +55,9 @@ public class EmployeeController {
 	
 	@GetMapping("/details")
 	public String  details(){
-		return jdbcURL + " " + jdbcUsername;
+		return jdbcURL + " " + jdbcUsername
+			+ "   " + env.getProperty("application.version")	
+				;
 	}
 	
 }
